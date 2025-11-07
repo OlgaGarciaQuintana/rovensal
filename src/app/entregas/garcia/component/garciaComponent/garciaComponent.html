@@ -13,11 +13,13 @@
     <!--Elegir personaje-->
 
     <h4>Elige tu personaje</h4>
+    
     <button (click)="selectMan()">Hombre</button> <button (click)="selectWoman()">Mujer</button>
 
     <br>
 
-    <img *ngIf="imagenPersonaje" [src]="imagenPersonaje" alt="imagen seleccionada">
+   <img *ngIf="imagenPersonaje" [src]="imagenPersonaje" alt="personaje">
+
 
 
     <hr>

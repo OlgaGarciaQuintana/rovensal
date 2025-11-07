@@ -3,6 +3,7 @@ import { Character, CharacterResponse } from '../../model/apiInterface';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-garcia',
   imports: [CommonModule],
@@ -17,24 +18,23 @@ export class GarciaComponent {
   }
 
   //ELEGIR PERSONAJE:
-  imagenPersonaje: HTMLImageElement | null = null;
+  imagenPersonaje: string | null = null;
+  mostrar = true;
 
-  imagenes = {
-  hombre: "../../imagenes/personajeMasc.png",
-  mujer:  "../../imagenes/personajeFem.png"
+imagenes = {
+  hombre: "/garcia/imagenes/personajeMasc.png",
+  mujer:  "/garcia/imagenes/personajeFem.png"
 };
 
-  selectMan() {
-  const img = new Image();
-  img.src = this.imagenes.hombre;
-  console.log("Ruta asignada:", img.src);
-  this.imagenPersonaje = img;
+selectMan() {
+  this.imagenPersonaje = this.imagenes.hombre;
+  this.mostrar = false;
+
 }
 
 selectWoman() {
-  const img = new Image();
-  img.src = this.imagenes.mujer;
-  this.imagenPersonaje = img;
+  this.imagenPersonaje = this.imagenes.mujer;
+  this.mostrar = false;
 }
 
   //API:
