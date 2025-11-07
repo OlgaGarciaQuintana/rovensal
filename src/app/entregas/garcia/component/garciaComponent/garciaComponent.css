@@ -3,5 +3,12 @@ body{
     background-image: url(../../imagenes/fondo.png);
     text-align: center;
     flex: auto;
-    
+}
+
+img{
+    width: 300px;
+}
+
+button{
+    margin: 10px;
 }

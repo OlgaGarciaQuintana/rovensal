@@ -1,36 +1,41 @@
 import { Component } from '@angular/core';
 import { Character, CharacterResponse } from '../../model/apiInterface';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-garcia',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './garciaComponent.html',
   styleUrl: './garciaComponent.css',
   standalone: true,
 })
 export class GarciaComponent {
-
   //INICIAR COMBATE:
   startCombat() {
     console.log('Combate iniciado');
   }
 
   //ELEGIR PERSONAJE:
-  selectMan() {
-    const characterPresetImage = document.getElementById(
-      'personajeMasc.png'
-    ) as HTMLImageElement;
-    characterPresetImage.src = '../../imagenes/personajeMasc.png';
-  }
+  imagenPersonaje: HTMLImageElement | null = null;
 
-  selectWoman() {
-    //poner la imagen del personaje femenino
-    const characterPresetImage = document.getElementById(
-      'characterPresetImage'
-    ) as HTMLImageElement;
-    characterPresetImage.src = '../../imagenes/personajeFem.png';
-  }
+  imagenes = {
+  hombre: "../../imagenes/personajeMasc.png",
+  mujer:  "../../imagenes/personajeFem.png"
+};
+
+  selectMan() {
+  const img = new Image();
+  img.src = this.imagenes.hombre;
+  console.log("Ruta asignada:", img.src);
+  this.imagenPersonaje = img;
+}
+
+selectWoman() {
+  const img = new Image();
+  img.src = this.imagenes.mujer;
+  this.imagenPersonaje = img;
+}
 
   //API:
   personajes: Character[] = [];
