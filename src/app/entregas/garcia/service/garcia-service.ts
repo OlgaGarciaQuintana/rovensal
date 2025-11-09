@@ -50,18 +50,18 @@ export class GarciaService {
   //Generar numeros aletarorios para los personajes raza humana
   generarStatsHumano(): CombatStats {
     return {
-      vida: this.numeroAleatorio(1, 100),
-      ataque: this.numeroAleatorio(1, 50),
-      defensa: this.numeroAleatorio(1, 50)
+      vida: this.numeroAleatorio(30, 100),
+      ataque: this.numeroAleatorio(20, 50),
+      defensa: this.numeroAleatorio(20, 50)
     };
   }
 
   //Generar numeros aletarorios para los personajes raza demonio
   generarStatsDemonio(): CombatStats {
     return {
-      vida: this.numeroAleatorio(1, 200),
-      ataque: this.numeroAleatorio(1, 100),
-      defensa: this.numeroAleatorio(1, 100)
+      vida: this.numeroAleatorio(30, 200),
+      ataque: this.numeroAleatorio(20, 100),
+      defensa: this.numeroAleatorio(20, 100)
     };
   }
 

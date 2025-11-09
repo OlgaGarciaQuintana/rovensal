@@ -33,11 +33,13 @@
         <div class="grupo-nombre">
             <input type="text" [(ngModel)]="nombreJugador" placeholder="Escribe tu nombre aquí..." maxlength="20"
                 class="input-nombre" />
+                <p style="text-align: center; opacity: 0.5;">Mínimo 3 carácteres y solo letras</p>
 
             @if (mensajeError) {
             <p class="error">❌ {{ mensajeError }}</p>
             }
         </div>
+       
 
         <div class="botones-navegacion">
             <button (click)="volverAtras()" class="boton-secundario">
