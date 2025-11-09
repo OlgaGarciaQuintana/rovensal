@@ -117,10 +117,10 @@ export class GarciaComponent implements OnInit {
     this.mensajeError = '';
     this.cargandoDemonio = true;
     if (this.rondaActual === 1) {
-      this.vidaJugador = this.numeroAleatorio(80, 100);
+      this.vidaJugador = this.numeroAleatorio(50, 100);
       this.vidaMaxJugador = this.vidaJugador;
       this.ataqueJugador = this.numeroAleatorio(30, 50);
-      this.defensaJugador = this.numeroAleatorio(20, 40);
+      this.defensaJugador = this.numeroAleatorio(30, 50);
       console.log('📊 Stats del jugador:', {
         vida: this.vidaJugador,
         ataque: this.ataqueJugador,
@@ -142,15 +142,14 @@ export class GarciaComponent implements OnInit {
         this.imagenDemonio = personajeElegido.img;
         const esRealmenteDemonio = personajeElegido.race === 'Demon';
         this.tipoDemonio = esRealmenteDemonio ? 'Demonio' : 'Humano';
-        const multiplicador = 1 + (this.rondaActual - 1) * 0.2;
         if (esRealmenteDemonio) {
-          this.vidaDemonio = Math.floor(this.numeroAleatorio(100, 150) * multiplicador);
-          this.ataqueDemonio = Math.floor(this.numeroAleatorio(40, 70) * multiplicador);
-          this.defensaDemonio = Math.floor(this.numeroAleatorio(30, 60) * multiplicador);
+          this.vidaDemonio = Math.floor(this.numeroAleatorio(50, 200));
+          this.ataqueDemonio = Math.floor(this.numeroAleatorio(50, 100));
+          this.defensaDemonio = Math.floor(this.numeroAleatorio(50, 100));
         } else {
-          this.vidaDemonio = Math.floor(this.numeroAleatorio(70, 100) * multiplicador);
-          this.ataqueDemonio = Math.floor(this.numeroAleatorio(25, 45) * multiplicador);
-          this.defensaDemonio = Math.floor(this.numeroAleatorio(20, 40) * multiplicador);
+          this.vidaDemonio = Math.floor(this.numeroAleatorio(50, 100));
+          this.ataqueDemonio = Math.floor(this.numeroAleatorio(30, 50));
+          this.defensaDemonio = Math.floor(this.numeroAleatorio(30, 50));
         }
         this.vidaMaxDemonio = this.vidaDemonio;
         console.log(`👹 Enemigo ${this.rondaActual}/5 cargado:`, {
@@ -220,22 +219,35 @@ export class GarciaComponent implements OnInit {
 }
 
   turnoDemonio(): void {
-    const random = Math.random();
-    if (random < 0.7) {
-      const dano = this.calcularDano(this.ataqueDemonio, this.defensaJugador, this.jugadorDefendiendo);
-      this.vidaJugador = this.vidaJugador - dano;
-      if (this.vidaJugador < 0) this.vidaJugador = 0;
-      this.agregarLog(`${this.nombreDemonio} atacó causando ${dano} de daño. Tu vida: ${this.vidaJugador}`, 'demonio');
-      if (this.vidaJugador <= 0) {
-        this.terminarCombate(false);
-        return;
-      }
+  const random = Math.random();
+
+  if (random < 0.7) { 
+    let dano = this.ataqueDemonio;
+
+    if (this.jugadorDefendiendo) {
+      dano = 0; 
     } else {
-      this.demonioDefendiendo = true;
-      this.agregarLog(`${this.nombreDemonio} se prepara para defender (+50% defensa)`, 'demonio');
+      dano = this.calcularDano(this.ataqueDemonio, this.defensaJugador, false);
     }
-    this.esTurnoJugador = true;
+
+    this.vidaJugador -= dano;
+    if (this.vidaJugador < 0) this.vidaJugador = 0;
+
+    this.agregarLog(`${this.nombreDemonio} atacó causando ${dano} de daño. Tu vida: ${this.vidaJugador}`, 'demonio');
+
+    if (this.vidaJugador <= 0) {
+      this.terminarCombate(false);
+      return;
+    }
+  } else { // enemigo decide defender
+    this.demonioDefendiendo = true;
+    this.agregarLog(`${this.nombreDemonio} se prepara para defender (+50% defensa)`, 'demonio');
   }
+
+  this.esTurnoJugador = true;
+  this.jugadorDefendiendo = false; // termina la defensa después del turno
+}
+
 
   calcularDano(ataque: number, defensa: number, estaDefendiendo: boolean): number {
     let defensaEfectiva = defensa;
