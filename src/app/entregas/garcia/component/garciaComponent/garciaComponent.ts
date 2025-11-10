@@ -230,7 +230,7 @@ export class GarciaComponent{
   }
 
   /**
-   * Ejecuta el turno del enemigo con IA básica
+   * Ejecuta el turno del enemigo
    */
   turnoDemonio(): void {
     const accion = this.garciaService.decidirAccionEnemigo();
